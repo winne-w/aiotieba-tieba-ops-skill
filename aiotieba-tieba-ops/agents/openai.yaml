@@ -1,0 +1,4 @@
+interface:
+  display_name: "AIOTieba Tieba Ops"
+  short_description: "Operate Tieba with aiotieba CLI helpers"
+  default_prompt: "Use $aiotieba-tieba-ops to inspect a Tieba forum, create a thread with optional local images, reply to a thread, sign forums, or run a moderation action with aiotieba."
