@@ -100,6 +100,7 @@ Prefer forum names when you have them. `aiotieba` accepts forum name or fid for 
 - Treat `BDUSS` as a long-lived secret. Never print it in the final answer or store it in the skill files.
 - Store reusable credentials in the user config directory, not in the skill directory.
 - `add-thread` can attach local images through upstream `aiotieba.Client.add_thread(..., image_paths=...)`. Keep image paths local and verify the files exist before posting.
+- `reply` can also attach local images through upstream `aiotieba.Client.add_post(..., image_paths=...)`. Prefer the unified CLI over ad hoc demo scripts.
 - Require explicit user intent before destructive moderation actions such as delete, recover, block, unban, move, or top.
 - Treat `reply` as higher risk. The upstream project explicitly warns that high-frequency use can cause permanent account restrictions. Use `--yes-risk` to make that choice explicit.
 - When a command fails, surface the exact API error and stop. Do not retry destructive actions blindly.
@@ -134,6 +135,12 @@ Reply to a thread:
 
 ```bash
 python scripts/tieba_cli.py reply --forum linux --tid 1234567890 --content 'ack' --yes-risk
+```
+
+Reply to a thread with images:
+
+```bash
+python scripts/tieba_cli.py reply --forum linux --tid 1234567890 --content 'ack' --image ./one.jpg --image ./two.png --yes-risk
 ```
 
 Block a user for one day:

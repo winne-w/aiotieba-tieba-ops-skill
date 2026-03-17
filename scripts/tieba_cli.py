@@ -63,6 +63,17 @@ def parse_args() -> argparse.Namespace:
     reply.add_argument("--tid", required=True, type=int)
     reply.add_argument("--content", required=True)
     reply.add_argument(
+        "--image",
+        action="append",
+        default=[],
+        help="Local image path. Repeat this flag to attach multiple images.",
+    )
+    reply.add_argument(
+        "--origin-image",
+        action="store_true",
+        help="Upload images as original images when supported by aiotieba.",
+    )
+    reply.add_argument(
         "--yes-risk",
         action="store_true",
         help="Required acknowledgement for add_post risk documented by aiotieba.",
@@ -302,7 +313,13 @@ async def run(args: argparse.Namespace) -> dict[str, Any]:
         if args.command == "reply":
             if not args.yes_risk:
                 raise SystemExit("reply requires --yes-risk because aiotieba documents posting risk")
-            result = await client.add_post(parse_forum(args.forum), args.tid, args.content)
+            result = await client.add_post(
+                parse_forum(args.forum),
+                args.tid,
+                args.content,
+                image_paths=args.image,
+                is_origin_image=args.origin_image,
+            )
             return bool_result(result)
 
         if args.command == "add-thread":

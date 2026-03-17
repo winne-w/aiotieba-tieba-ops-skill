@@ -29,7 +29,16 @@ async def add_thread(
     is_origin_image: bool = False,
     is_private: bool = False,
 )
-async def add_post(self, fname_or_fid: str | int, /, tid: int, content: str)
+async def add_post(
+    self,
+    fname_or_fid: str | int,
+    /,
+    tid: int,
+    content: str,
+    *,
+    image_paths: list[str] | None = None,
+    is_origin_image: bool = False,
+)
 async def follow_forum(self, fname_or_fid: str | int)
 async def unfollow_forum(self, fname_or_fid: str | int)
 async def sign_forum(self, fname_or_fid: str | int)
@@ -60,6 +69,8 @@ async def move(self, fname_or_fid: str | int, /, tid: int, *, to_tab_id: int, fr
 - `add-thread` can pass repeated local image paths through `image_paths`.
 - `add-thread --origin-image` maps to `is_origin_image=True`.
 - `add-thread --private` maps to `is_private=True`.
+- `reply` can pass repeated local image paths through `image_paths`.
+- `reply --origin-image` maps to `is_origin_image=True`.
 - `get_threads` sorts by `reply`, `create`, `hot`, or `follow`.
 - `get_posts` sorts by `asc`, `desc`, or `hot`.
 - Forum arguments can usually be a forum name or fid. The CLI exposes this as `--forum`.
